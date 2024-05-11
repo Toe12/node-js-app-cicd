@@ -1,6 +1,9 @@
 name: NodeJS Github Action
 
 on:
+  push:
+    branches:
+      - main  # Add other branches here if needed
   workflow_dispatch:
     inputs:
       branch:
@@ -18,6 +21,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
       - name: Check branch name
         shell: bash
         run: |
