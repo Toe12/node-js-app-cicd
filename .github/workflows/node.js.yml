@@ -31,4 +31,3 @@ jobs:
 
   deploy:
     name: "Deployment Process"
-    steps:
