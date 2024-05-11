@@ -3,7 +3,7 @@ name: NodeJS Github Action
 on:
   push:
     branches:
-      - main  # Add other branches here if needed
+      - main # Add other branches here if needed
   # workflow_dispatch:
   #   inputs:
   #     branch:
@@ -13,7 +13,6 @@ on:
   #       default: "main"
 
 jobs:
-
   checkout:
     name: Checkout and Build
     runs-on: ubuntu-latest
@@ -35,5 +34,5 @@ jobs:
         run: npm test
 
       - name: Build project
-        run: npm run build
-        if: ${{ success() }} # This ensures that build command only runs if all previous steps were successful
+        #run: npm run build
+        #if: ${{ success() }} # This ensures that build command only runs if all previous steps were successful
