@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - main  # Add other branches here if needed
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: Branch name to build
-        type: string
-        required: true
-        default: "main"
+  # workflow_dispatch:
+  #   inputs:
+  #     branch:
+  #       description: Branch name to build
+  #       type: string
+  #       required: true
+  #       default: "main"
 
 jobs:
 
@@ -26,7 +26,7 @@ jobs:
       - name: Check branch name
         shell: bash
         run: |
-          echo "branch name $ {{ inputs.branch }}"
+          echo "branch name ${{ github.event.inputs.branch }}"
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
