@@ -1,31 +1,38 @@
 name: NodeJS Github Action
 
-on: push
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch name to build
+        type: string
+        required: true
+        default: "main"
 
 jobs:
-  build:
+  checkout:
+    name: Checkout and Build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+        shell: bash
+        run: |
+          echo "branch name $ {{ inputs.branch }}"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 21
           cache: "npm"
-          #cache-dependency-path: subdir/package-lock.json
-      - run: npm ci
-      - run: npm test
+      - name: Install dependencies
+        run: npm ci
 
-  # deploy:
-  #   name: "Deployment Process"
-  #   steps:
+      - name: Run tests
+        run: npm test
 
-  # runs-on: ubuntu-latest
-  # needs: [build]
-  # steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: akhileshns/heroku-deploy@v3.12.12
-  #     with:
-  #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #       heroku_app_name: 'node-github-action' #Must be unique in Heroku
-  #       heroku_email: 'shivay.lamba@scaler.com'
+      - name: Build project
+        run: npm run build
+        if: ${{ success() }} # This ensures that build command only runs if all previous steps were successful
