@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch }}
+      - name: Check branch name
         shell: bash
         run: |
           echo "branch name $ {{ inputs.branch }}"
