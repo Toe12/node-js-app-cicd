@@ -33,12 +33,12 @@ jobs:
       - name: Run tests
         run: npm test
 
-      # - name: Build project
-      #   run: npm run build
-      #   if: ${{ success() }} # This ensures that build command only runs if all previous steps were successful
+      - name: Build project
+        run: npm run build
+        if: ${{ success() }} # This ensures that build command only runs if all previous steps were successful
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # The branch to deploy to, can be any branch, but 'gh-pages' is a common convention
-          folder: build     # The folder where your build script outputs the static files
+          branch: gh-pages # The branch to deploy to, can be any branch, but 'gh-pages' is a common convention
+          folder: build # The folder where your build script outputs the static files
